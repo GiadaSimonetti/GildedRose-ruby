@@ -1,5 +1,6 @@
 require_relative 'item'
 
+# this is a class for the Gilderose store
 class GildedRose
   def initialize(items)
     @items = items
@@ -7,43 +8,26 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      if (item.name != 'Aged Brie') && (item.name != 'Backstage passes to a
-        TAFKAL80ETC concert')
-        if item.quality > 0
-          if item.name != 'Sulfuras, Hand of Ragnaros'
-            item.quality -= 1
+      if item.quality > 0 && item.quality < 50
+        if item.name.include? 'Sulfuras'
+          return item
+        elsif item.name.include? 'Backstage passes'
+          if item.sell_in < 6
+            item.quality += 3
+          elsif item.sell_in < 11
+            item.quality += 2
+          else
+            item.quality += 1
           end
+        elsif item.name.include? 'Aged Brie'
+          item.quality += 1
+        elsif (item.name.include? 'Conjured') || (item.sell_in <= 0)
+          item.quality -= 2
+        else item.sell_in > 0
+          item.quality -= 1
         end
       else
-        if item.quality < 50
-          item.quality += 1
-          if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-            if item.sell_in < 11
-              item.quality += 2
-            end
-            if item.sell_in < 6
-              item.quality += 3
-            end
-          end
-        end
-      end
-      if item.name != 'Sulfuras, Hand of Ragnaros'
-        item.sell_in -= 1
-      end
-      if item.sell_in < 0
-        if item.name != 'Aged Brie'
-          if item.name != 'Backstage passes to a TAFKAL80ETC concert'
-            if item.quality > 0
-              if item.name != 'Sulfuras, Hand of Ragnaros'
-                item.quality -= 1
-              end
-            end
-          else
-            item.quality -= item.quality
-          end
-        else
-          item.quality += 1
-        end
+        'Quality error'
       end
     end
   end

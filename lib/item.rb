@@ -1,3 +1,4 @@
+# this is a class for the item
 class Item
   attr_accessor :name, :sell_in, :quality
 
