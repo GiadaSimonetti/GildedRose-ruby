@@ -1,10 +1,9 @@
 require './lib/gilded_rose'
 require './lib/item'
 
-describe Gilded Rose do
+describe GildedRose do
   describe '#update_quality' do
-
-    it 'raises error when quality is less than 0 and more than 50'do
+    it 'raises error when quality is less than 0 or more than 50'do
       items = [Item.new('Parmesan', 15, -1)]
       gilded_rose = GildedRose.new(items)
       expect(gilded_rose.update_quality).to eq 'Quality error'
@@ -52,26 +51,25 @@ describe Gilded Rose do
       expect(items[0].quality).to eq 52
     end
 
-      it 'does not change quality' do
-        items = [Item.new('Aged Brie', 2, 0)]
-        gilded_rose = GildedRose.new(items)
-        gilded_rose.update_quality
-        expect(items[0].quality).to eq 1
-      end
+    it 'does not change quality' do
+      items = [Item.new('Aged Brie', 2, 0)]
+      gilded_rose = GildedRose.new(items)
+      gilded_rose.update_quality
+      expect(items[0].quality).to eq 1
+    end
 
-      it 'increases in quality the older it gets' do
-        items = [Item.new('Aged Brie', 2, 0)]
-        gilded_rose = GildedRose.new(items)
-        gilded_rose.update_quality
-        expect(items[0].quality).to eq 1
-      end
+    it 'increases in quality the older it gets' do
+      items = [Item.new('Aged Brie', 2, 0)]
+      gilded_rose = GildedRose.new(items)
+      gilded_rose.update_quality
+      expect(items[0].quality).to eq 1
+    end
 
-      it 'degrades in quality twice as fast as normal items' do
+    it 'degrades in quality twice as fast as normal items' do
         items = [Item.new('Conjured Mana Cake', 3, 4)]
         gilded_rose = GildedRose.new(items)
         gilded_rose.update_quality
         expect(items[0].quality).to eq 2
       end
-
   end
 end

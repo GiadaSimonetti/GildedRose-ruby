@@ -8,7 +8,7 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      if item.quality > 0 && item.quality < 50
+      if item.quality >= 0 && item.quality <= 50
         if item.name.include? 'Sulfuras'
           return item
         elsif item.name.include? 'Backstage passes'
@@ -27,7 +27,7 @@ class GildedRose
           item.quality -= 1
         end
       else
-        'Quality error'
+        return 'Quality error'
       end
     end
   end
